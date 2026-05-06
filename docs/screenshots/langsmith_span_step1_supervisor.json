@@ -1,0 +1,85 @@
+{
+  "inputs": {
+    "input": {
+      "agent_results": [],
+      "errors": [],
+      "iteration": 1,
+      "request": {
+        "audience": "technical learners",
+        "max_sources": 5,
+        "query": "Summarize production guardrails for LLM agents"
+      },
+      "route_history": [
+        "researcher"
+      ],
+      "sources": [],
+      "trace": [
+        {
+          "name": "supervisor.route",
+          "payload": {
+            "iteration": 1,
+            "next": "researcher"
+          }
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "agent_results": [],
+    "analysis_notes": null,
+    "errors": [],
+    "final_answer": null,
+    "iteration": 1,
+    "request": {
+      "audience": "technical learners",
+      "max_sources": 5,
+      "query": "Summarize production guardrails for LLM agents"
+    },
+    "research_notes": null,
+    "route_history": [
+      "researcher"
+    ],
+    "sources": [],
+    "trace": [
+      {
+        "name": "supervisor.route",
+        "payload": {
+          "iteration": 1,
+          "next": "researcher"
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "multi-agent-research-lab",
+    "LANGSMITH_TRACING": "true",
+    "langgraph_checkpoint_ns": "supervisor:d8e109c3-bcee-2e10-d615-87026549f96b",
+    "langgraph_node": "supervisor",
+    "langgraph_path": [
+      "__pregel_pull",
+      "supervisor"
+    ],
+    "langgraph_step": 1,
+    "langgraph_triggers": [
+      "branch:to:supervisor"
+    ],
+    "ls_integration": "langgraph",
+    "ls_run_depth": 1,
+    "revision_id": "719695d-dirty"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "fd9c6baf-2fda-417c-8f89-8794ab1bad47"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "1312fc6a-b482-4c37-a5a6-7a660c799142"
+    },
+    "tracing_project": {
+      "id": "45446b4b-f5ac-40d7-95a3-cb464f511a5f",
+      "name": "multi-agent-research-lab"
+    }
+  }
+}
