@@ -2,7 +2,7 @@
 
 import logging
 
-from tavily import TavilyClient  # type: ignore[import-not-found]
+from tavily import TavilyClient
 
 from multi_agent_research_lab.core.config import get_settings
 from multi_agent_research_lab.core.schemas import SourceDocument

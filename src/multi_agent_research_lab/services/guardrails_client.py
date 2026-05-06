@@ -11,7 +11,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from nemoguardrails import LLMRails, RailsConfig  # type: ignore[import-untyped]
+from nemoguardrails import LLMRails, RailsConfig
 
 logger = logging.getLogger(__name__)
 
