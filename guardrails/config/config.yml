@@ -1,0 +1,21 @@
+models:
+  - type: main
+    engine: openai
+    model: gpt-4o-mini
+
+rails:
+  input:
+    flows:
+      - check jailbreak
+      - check prompt injection
+      - check harmful query
+  output:
+    flows:
+      - check output for harmful content
+
+instructions:
+  - type: general
+    content: |
+      You are a guardrail assistant for a research pipeline.
+      Your job is to identify malicious, harmful, or off-topic inputs
+      and block them before they enter the research workflow.
