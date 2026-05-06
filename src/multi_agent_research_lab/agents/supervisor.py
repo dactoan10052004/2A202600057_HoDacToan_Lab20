@@ -27,7 +27,8 @@ class SupervisorAgent(BaseAgent):
             logger.warning("Query too short for research pipeline — skipping.")
             state.final_answer = (
                 "Query is too short or too simple for the multi-agent research pipeline. "
-                "Please provide a more detailed research question (at least 4 words)."
+                f"Please provide a more detailed research question "
+                f"(at least {self._MIN_QUERY_WORDS} words)."
             )
             state.errors.append("query_too_short")
             next_route = "done"
