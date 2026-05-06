@@ -1,8 +1,12 @@
-"""Supervisor / router skeleton."""
+"""Supervisor / router agent."""
+
+import logging
 
 from multi_agent_research_lab.agents.base import BaseAgent
-from multi_agent_research_lab.core.errors import StudentTodoError
+from multi_agent_research_lab.core.config import get_settings
 from multi_agent_research_lab.core.state import ResearchState
+
+logger = logging.getLogger(__name__)
 
 
 class SupervisorAgent(BaseAgent):
@@ -10,13 +14,36 @@ class SupervisorAgent(BaseAgent):
 
     name = "supervisor"
 
+    _MIN_QUERY_WORDS = 3
+
     def run(self, state: ResearchState) -> ResearchState:
-        """Update `state.route_history` with the next route.
+        """Route to the next agent or terminate the pipeline."""
+        settings = get_settings()
 
-        TODO(student): Implement routing policy. Suggested steps:
-        - Inspect request, current notes, and missing fields.
-        - Choose one of: researcher, analyst, writer, done.
-        - Enforce max iterations and failure fallback.
-        """
+        if state.iteration >= settings.max_iterations:
+            logger.warning("Max iterations (%d) reached — stopping.", settings.max_iterations)
+            next_route = "done"
+        elif len(state.request.query.split()) < self._MIN_QUERY_WORDS:
+            logger.warning("Query too short for research pipeline — skipping.")
+            state.final_answer = (
+                "Query is too short or too simple for the multi-agent research pipeline. "
+                "Please provide a more detailed research question (at least 4 words)."
+            )
+            state.errors.append("query_too_short")
+            next_route = "done"
+        elif state.research_notes is None:
+            next_route = "researcher"
+        elif state.analysis_notes is None:
+            next_route = "analyst"
+        elif state.final_answer is None:
+            next_route = "writer"
+        else:
+            next_route = "done"
 
-        raise StudentTodoError("TODO(student): implement SupervisorAgent.run")
+        logger.info("Supervisor -> %s (iteration %d)", next_route, state.iteration)
+        state.record_route(next_route)
+        state.add_trace_event(
+            "supervisor.route",
+            {"next": next_route, "iteration": state.iteration},
+        )
+        return state
