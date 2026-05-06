@@ -5,6 +5,7 @@ Two-layer defence:
 2. NeMo Guardrails LLM-rail (Colang) — semantic check for edge cases.
 """
 
+import asyncio
 import logging
 import re
 from pathlib import Path
@@ -66,8 +67,6 @@ class GuardrailsClient:
             return GuardrailsResult(allowed=True, reason="guardrails_disabled")
 
         try:
-            import asyncio
-
             response: Any = asyncio.run(
                 self._rails.generate_async(messages=[{"role": "user", "content": query}])
             )
@@ -87,5 +86,5 @@ class GuardrailsClient:
 
             return GuardrailsResult(allowed=True)
         except Exception as exc:
-            logger.warning("Guardrails check error (%s) — allowing query.", exc)
+            logger.error("Guardrails NeMo check failed (%s) — failing open.", exc)
             return GuardrailsResult(allowed=True, reason=f"check_error: {exc}")

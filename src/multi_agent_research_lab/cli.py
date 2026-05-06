@@ -1,6 +1,7 @@
 """Command-line entrypoint for the lab starter."""
 
 import logging
+from time import perf_counter
 from typing import Annotated
 
 import typer
@@ -153,7 +154,6 @@ def benchmark() -> None:
     console.print("\n[bold]Running guardrails adversarial tests ...[/bold]")
     guardrails_results = []
     for attack_query in _GUARDRAILS_TEST_QUERIES:
-        from time import perf_counter
         t0 = perf_counter()
         gr = _guardrails.check(attack_query)
         latency = round(perf_counter() - t0, 4)
