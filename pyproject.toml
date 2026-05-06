@@ -25,7 +25,8 @@ llm = [
   "langgraph>=0.2",
   "langchain-core>=0.2",
   "langsmith>=0.1",
-  "nemoguardrails>=0.9"
+  "nemoguardrails>=0.9",
+  "tavily-python>=0.3"
 ]
 dev = [
   "pytest>=8.2",
